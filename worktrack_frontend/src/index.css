@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* ===== WorkTrack Design Tokens — "Civic Ledger" ===== */
+  --color-ledger-950: #0a1f17;
+  --color-ledger-900: #0f3d2e;
+  --color-ledger-800: #154a38;
+  --color-ledger-700: #1d5c46;
+  --color-ledger-600: #2a7358;
+  --color-ledger-100: #e4e9de;
+  --color-ledger-50: #f6f4ec;
+
+  --color-brass-600: #a67c28;
+  --color-brass-500: #c89b3c;
+  --color-brass-400: #d9b955;
+  --color-brass-300: #e6cf8c;
+  --color-brass-100: #f3e6c4;
+
+  --color-ink-900: #20241f;
+  --color-ink-600: #4b5148;
+  --color-ink-400: #7c8377;
+
+  --color-status-productive: #2f7d52;
+  --color-status-productive-soft: #e3f2e8;
+  --color-status-partial: #c9862b;
+  --color-status-partial-soft: #faedd9;
+  --color-status-absent: #b23a2e;
+  --color-status-absent-soft: #f8e3e0;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-ledger-50);
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-ledger-100); border-radius: 8px; }
+
+/* Stamp press animation for check-in / check-out button */
+@keyframes stamp-press {
+  0% { transform: scale(1) rotate(0deg); }
+  35% { transform: scale(0.88) rotate(-2deg); }
+  60% { transform: scale(1.05) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.animate-stamp { animation: stamp-press 420ms cubic-bezier(.34,1.56,.64,1); }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 480ms ease both; }
+
+/* Ledger paper texture for hero panels */
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(15,61,46,0.05) 1px, transparent 0);
+  background-size: 18px 18px;
+}
