@@ -10,6 +10,12 @@ function fmtTime(iso) {
   return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 }
 
+function localDateString(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate()
+  ).padStart(2, '0')}`;
+}
+
 const FILTERS = [
   { key: 'all', label: 'All Staff' },
   { key: 'present', label: 'Present' },
@@ -25,7 +31,7 @@ function OverrideModal({ record, onClose, onSaved }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localDateString();
 
   async function handleSave() {
     if (!reason.trim()) {
