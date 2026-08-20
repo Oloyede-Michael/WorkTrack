@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { WORK_END_MIN } = require('../config/constants');
 const {
   classifyCheckIn,
   classifyCheckOut,
@@ -132,7 +133,12 @@ async function overrideAttendance(req, res, next) {
     }
 
     const checkIn = checkInTime ? new Date(checkInTime) : null;
-    const checkOut = checkOutTime ? new Date(checkOutTime) : null;
+    let checkOut = checkOutTime ? new Date(checkOutTime) : null;
+
+    if (checkIn && !checkOut) {
+      checkOut = new Date(checkIn);
+      checkOut.setHours(Math.floor(WORK_END_MIN / 60), WORK_END_MIN % 60, 0, 0);
+    }
 
     const checkInStatus = checkIn ? classifyCheckIn(checkIn) : null;
     const checkOutStatus = checkOut ? classifyCheckOut(checkOut) : null;

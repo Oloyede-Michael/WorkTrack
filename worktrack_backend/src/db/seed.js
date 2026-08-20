@@ -11,6 +11,23 @@ async function seed() {
 
     await client.query('BEGIN');
 
+    // Departments (idempotent upsert so existing DBs pick up new ones like ICT)
+    const departments = [
+      { name: 'Administration', description: 'General administrative services' },
+      { name: 'Finance & Accounts', description: 'Revenue, budgeting and accounts' },
+      { name: 'Health Services', description: 'Primary healthcare coordination' },
+      { name: 'Works & Environment', description: 'Infrastructure and sanitation' },
+      { name: 'Human Resources', description: 'Personnel management' },
+      { name: 'ICT', description: 'Information and communication technology' },
+    ];
+    for (const d of departments) {
+      await client.query(
+        `INSERT INTO departments (name, description) VALUES ($1, $2)
+         ON CONFLICT (name) DO NOTHING`,
+        [d.name, d.description]
+      );
+    }
+
     // Admin account
     const adminRes = await client.query(
       `INSERT INTO users (email, password_hash, role)

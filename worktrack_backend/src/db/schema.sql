@@ -89,7 +89,8 @@ INSERT INTO departments (name, description) VALUES
     ('Finance & Accounts', 'Revenue, budgeting and accounts'),
     ('Health Services', 'Primary healthcare coordination'),
     ('Works & Environment', 'Infrastructure and sanitation'),
-    ('Human Resources', 'Personnel management');
+    ('Human Resources', 'Personnel management'),
+    ('ICT', 'Information and communication technology');
 
 -- ============================================================
 -- Seed: Admin user  (password: Admin@123 — hashed at seed-script time)
